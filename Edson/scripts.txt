@@ -1,1 +1,56 @@
 Edson's Script
+
+================= PAGP ================
+========= S0 ==========
+
+int range f0/1,f0/9
+channel-protocol pagp
+channel-group 1 mode auto 
+exit
+int range f0/11,f0/12
+channel-protocol pagp
+channel-group 2 mode auto 
+exit
+exit
+========= S1 ==========
+
+int range f0/1,f0/9
+channel-protocol pagp
+channel-group 1 mode auto 
+exit
+int range f0/7,f0/8
+channel-protocol pagp
+channel-group 3 mode auto 
+exit
+int range f0/10,f0/6
+channel-protocol pagp
+channel-group 4 mode auto 
+exit
+exit
+========= S2 ==========
+
+int range f0/10,f0/6
+channel-protocol pagp
+channel-group 4 mode auto 
+exit
+int range f0/13,f0/14
+channel-protocol pagp
+channel-group 5 mode auto 
+exit
+exit
+
+========= S4 ==========
+
+int range f0/11,f0/12
+channel-protocol pagp
+channel-group 2 mode auto 
+exit
+int range f0/7,f0/8
+channel-protocol pagp
+channel-group 3 mode auto 
+exit
+int range f0/13,f0/14
+channel-protocol pagp
+channel-group 5 mode auto 
+exit
+exit
