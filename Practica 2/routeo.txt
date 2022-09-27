@@ -1,0 +1,45 @@
+192.168.22.1
+192.168.22.33
+
+192.168.82.1
+
+======= router 10
+int gig0/2
+no shutdown
+ip address 1.1.1.1 255.255.255.252
+exit
+int gig0/0
+no shutdown
+ip address 2.2.2.1 255.255.255.252
+exit
+int gig0/1
+no shutdown
+ip address 192.168.82.1 255.255.255.224
+exit
+======= router 19
+int gig0/2
+no shutdown
+ip address 1.1.1.2 255.255.255.252
+exit
+int gig0/0
+no shutdown
+ip address 3.3.3.1 255.255.255.252
+exit
+int gig0/1
+no shutdown
+ip address 192.168.82.3 255.255.255.224
+exit
+======= router 23
+int gig0/2
+no shutdown
+ip address 2.2.2.2 255.255.255.252
+exit
+int gig0/0
+no shutdown
+ip address 3.3.3.2 255.255.255.252
+exit
+int se0/3/0
+no shutdown
+ip address 4.4.4.1 255.255.255.252
+clock rate 56000
+exit
