@@ -1,6 +1,11 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 import json
+import pymongo
 
+myclient = pymongo.MongoClient("mongodb://localhost:27017")
+mydb = myclient["Redes2"]
+images = mydb["images"]
+personas = mydb["personas"]
 app = Flask(__name__)
 
 @app.route('/')
@@ -10,25 +15,39 @@ def home():
 
 @app.route('/allPeople')
 def allPeople():
-    return 'pagina que muestre a toda la gente'
+    all_people = personas.find()
+    respuesta = []
+    for element in all_people:
+        del element['_id']
+        respuesta.append(element)
+    return json.dumps({'personas': respuesta })
 
 @app.route('/addPeople')
 def addPeople():
-    nombre = ''
-    puesto = ''
+    requestBody = request.get_json(force=True)
+    nombre = requestBody['nombre']
+    puesto = requestBody['puesto']
     sender = {'nombre':nombre, 'puesto':puesto}
-    return 'aqui hay que agregar gente'
+    personas.insert_one(sender)
+    return json.dumps({'message':'person added successfuly'})
 
 @app.route('/allImages')
 def allImages():
-    return 'aqui van todas las imagenes'
+    all_images = images.find()
+    respuesta = []
+    for element in all_images:
+        del element['_id']
+        respuesta.append(element)
+    return json.dumps({'imagenes': respuesta})
 
 @app.route('/addImage')
 def addImage():
-    nombre = ''
-    imageurl = ''
+    requestBody = request.get_json(force=True)
+    nombre = requestBody['nombre']
+    imageurl = requestBody['imagen']
     sender = {'nombre': nombre, 'imagen': imageurl}
-    return 'endpoint para agregar imagenes'
+    images.insert_one(sender)
+    return json.dumps({'message':'image added successfuly'})
 
 @app.route('/datosMonedas')
 def datosMonedas():
