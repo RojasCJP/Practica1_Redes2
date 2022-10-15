@@ -1,0 +1,474 @@
+--------------------R1--------------------
+########## VTP ##########
+vtp mode server
+vtp version 2
+vtp domain GRUPO2 
+vtp password grupo2
+
+########## TRUNK ##########
+int range f0/1-#
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+########## VLANS ##########
+vlan 12
+name Ventas
+vlan 22
+name Distribucion
+vlan 32
+name Administracion
+vlan 42
+name Servidores
+vlan 99
+name Management&Native
+vlan 999
+name BlackHole
+
+########## INTERVLAN ##########
+int vlan 12
+ip address 192.168.88.1 255.255.255.224
+no shutdown
+exit
+
+int vlan 22
+ip address 192.168.88.33 255.255.255.224
+no shutdown
+exit
+
+int vlan 32
+ip address 192.168.88.65 255.255.255.224
+no shutdown
+exit
+
+int vlan 42
+ip address 192.168.88.97 255.255.255.224
+no shutdown
+exit
+
+ip routing
+
+########## SEGURIDAD ##########
+#- en rango de interfaces no utilizada, tambien puede hacerse al inicio, ya que despues tendran que configurarse
+los demas puertos -#
+
+int range f0/3-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int range f0/1-2
+switchport trunk native vlan 99
+
+
+
+
+
+-------------------- S0 --------------------
+########## VTP ##########
+vtp mode client
+vtp version 2
+vtp domain GRUPO2
+vtp password grupo2
+
+########## TRUNK ##########
+int range f0/1-4
+switchport mode trunk
+switchport trunk allowed vlan 1002-1005,16,26,36,46,99,999
+
+int range f0/6-7
+switchport mode trunk
+switchport trunk allowed vlan 1002-1005,16,26,36,46,99,999
+
+########## ACCESS ##########
+int f0/8
+switchport mode access
+switchport access vlan 16
+
+int f0/5
+switchport mode access
+switchport access vlan 26
+
+########## SEGURIDAD ##########
+////////// interfaces no utilizadas //////////
+int range f0/9-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int range f0/1-4
+switchport trunk native vlan 99
+
+int range f0/6-7
+switchport trunk native vlan 99
+
+////////// PORT SECURITY //////////
+int f0/8
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security maximum 5
+switchport port-security violation protect
+
+int f0/5
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security maximum 1
+switchport port-security violation shutdown
+
+-------------------- S1 --------------------
+########## VTP ##########
+vtp mode client
+vtp version 2
+vtp domain g24
+vtp password g24
+
+########## TRUNK ##########
+int range f0/1-8
+switchport mode trunk
+switchport trunk allowed vlan 1002-1005,16,26,36,46,99,999
+
+########## SEGURIDAD ##########
+////////// interfaces no utilizadas //////////
+int range f0/9-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int range f0/1-8
+switchport trunk native vlan 99
+
+
+
+
+
+-------------------- S2 --------------------
+########## VTP ##########
+vtp mode client
+vtp version 2
+vtp domain GRUPO2
+vtp password grupo2
+
+########## TRUNK ##########
+int range f0/1-4
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+int range f0/7-8
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+########## ACCESS ##########
+int f0/5
+switchport mode access
+switchport access vlan 32
+
+int f0/6
+switchport mode access
+switchport access vlan 22
+
+########## SEGURIDAD ##########
+////////// interfaces no utilizadas //////////
+int range f0/9-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int range f0/1-4
+switchport trunk native vlan 99
+
+int range f0/7-8
+switchport trunk native vlan 99
+
+////////// PORT SECURITY //////////
+
+int f0/5
+switchport port-security
+switchport port-security mac-address #mac address number#
+switchport port-security maximum 1
+switchport port-security violation shutdown
+
+
+int f0/6
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security maximum 1
+switchport port-security violation shutdown
+
+
+
+
+
+-------------------- S3 --------------------
+########## VTP ##########
+vtp mode client
+vtp version 2
+vtp domain GRUPO2
+vtp password grupo2
+
+########## TRUNK ##########
+int range f0/1
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+int range f0/3
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+int range f0/6
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+########## ACCESS ##########
+int f0/2
+switchport mode access
+switchport access vlan 42
+
+int f0/4
+switchport mode access
+switchport access vlan 12
+
+########## SEGURIDAD ##########
+////////// interfaces no utilizadas //////////
+int f0/5
+switchport mode access
+switchport access vlan 999
+
+int range f0/7-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int f0/1
+switchport trunk native vlan 99
+
+int f0/3
+switchport trunk native vlan 99
+
+int f0/6
+switchport trunk native vlan 99
+
+////////// PORT SECURITY //////////
+int f0/4
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security maximum 5
+switchport port-security violation protect
+
+
+
+
+
+-------------------- S4 --------------------
+########## VTP ##########
+vtp mode client
+vtp version 2
+vtp domain GRUPO2
+vtp password grupo2
+
+########## TRUNK ##########
+int range f0/1-8
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+########## ACCESS ##########
+int f0/9
+switchport mode access
+switchport access vlan 22
+
+int f0/10
+switchport mode access
+switchport access vlan 32
+
+########## SEGURIDAD ##########
+////////// interfaces no utilizadas //////////
+int range f0/11-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int range f0/1-8
+switchport trunk native vlan 99
+
+////////// PORT SECURITY //////////
+int f0/9
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security maximum 1
+switchport port-security violation shutdown
+
+int f0/10
+switchport port-security
+switchport port-security mac-address #mac address number#
+switchport port-security maximum 1
+switchport port-security violation shutdown
+
+
+
+
+
+-------------------- S5 --------------------
+########## VTP ##########
+vtp mode client
+vtp version 2
+vtp domain GRUPO2
+vtp password grupo2
+
+########## TRUNK ##########
+int range f0/1
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+int range f0/3
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+int range f0/8
+switchport mode trunk
+switchport trunk allowed vlan 1,2,12,22,32,42,99,999,1002-1005
+
+########## ACCESS ##########
+int f0/2
+switchport mode access
+switchport access vlan 12
+
+int f0/4
+switchport mode access
+switchport access vlan 42
+
+########## SEGURIDAD ##########
+////////// interfaces no utilizadas //////////
+int range f0/5-7
+switchport mode access
+switchport access vlan 999
+
+int range f0/9-24
+switchport mode access
+switchport access vlan 999
+
+int range g0/1-2
+switchport mode access
+switchport access vlan 999
+
+////////// VLAN NATIVA //////////
+int f0/1
+switchport trunk native vlan 99
+
+int f0/3
+switchport trunk native vlan 99
+
+int f0/8
+switchport trunk native vlan 99
+
+////////// PORT SECURITY //////////
+int f0/2
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security maximum 5
+switchport port-security violation protect
+
+
+
+
+
+-------------------- PORT CHANNEL --------------------
+########## S0-S1 ##########
+int range f0/2-3
+channel-protocol pagp
+channel-group 1 mode auto
+
+
+int range f0/2-3
+channel-protocol lacp
+channel-group 1 mode active
+
+int range f0/2-3
+channel-protocol lacp
+channel-group 1 mode passive
+
+
+########## S1-S2 ##########
+int range f0/7-8
+channel-protocol pagp
+channel-group 2 mode auto
+
+
+int range f0/7-8
+channel-protocol lacp
+channel-group 2 mode active
+
+int range f0/7-8
+channel-protocol lacp
+channel-group 2 mode passive
+
+########## S0-S4 ##########
+int range f0/6-7
+channel-protocol pagp
+channel-group 3 mode auto
+
+
+int range f0/6-7
+channel-protocol lacp
+channel-group 3 mode active
+
+int range f0/6-7
+channel-protocol lacp
+channel-group 3 mode passive
+
+########## S2-S4 ##########
+int range f0/1-2
+channel-protocol pagp
+channel-group 4 mode auto
+
+
+int range f0/1-2
+channel-protocol lacp
+channel-group 4 mode active
+
+int range f0/1-2
+channel-protocol lacp
+channel-group 4 mode passive
+
+########## S1-S4 ##########
+int range f0/4-5
+channel-protocol pagp
+channel-group 5 mode auto
+
+
+int range f0/4-5
+channel-protocol lacp
+channel-group 5 mode active
+
+
+int range f0/4-5
+channel-protocol lacp
+channel-group 5 mode passive
+
+spanning-tree mode pvst
+spanning-tree mode rapid-pvst
+
+
+
+----DESACTIVAR DTP----
+switchport nonegotiate
