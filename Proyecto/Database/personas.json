@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "nombre": "Alejandro Giammattei",
+    "puesto": "Presidente de la republica"
+  },
+  {
+    "nombre": "Guillermo Castillo",
+    "puesto": "Visepresidente de la republica"
+  }
+]
