@@ -1,17 +1,16 @@
-const prueba = [
-  {
-    imagen:
-      'https://www.congreso.gob.gt/assets/uploads/noticias/miniaturas/4f3a4-foto2.jpg',
-    nombre: 'Camara de diputados',
-  },
-  {
-    imagen:
-      'https://upload.wikimedia.org/wikipedia/commons/a/a4/Alejandro_Giammattei_%28portrait%29_%28cropped2%29.jpg',
-    nombre: 'Presidente de la republica',
-  },
-];
+import React, { useEffect, useState } from 'react';
 
 export default function Images() {
+  const [archivoPublico, setArchivoPublico] = useState([]);
+  const hola = async () => {
+    const respuest = await getData();
+
+    setArchivoPublico(respuest.imagenes);
+  };
+
+  useEffect(() => {
+    hola();
+  }, []);
   return (
     <div>
       <h1>Imagenes</h1>
@@ -27,7 +26,7 @@ export default function Images() {
           </tr>
         </thead>
         <tbody>
-          {prueba.map((val, key) => {
+          {archivoPublico.map((val, key) => {
             return (
               <tr>
                 <td>{val.nombre}</td>
@@ -44,3 +43,20 @@ export default function Images() {
     </div>
   );
 }
+
+const getData = () => {
+  return fetch(`http://localhost:5000/allImages`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((res) => {
+      return res;
+    });
+};

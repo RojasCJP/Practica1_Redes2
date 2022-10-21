@@ -1,15 +1,16 @@
-const prueba = [
-  {
-    nombre: 'Alejandro Giammattei',
-    puesto: 'Presidente de la republica',
-  },
-  {
-    nombre: 'Guillermo Castillo',
-    puesto: 'Visepresidente de la republica',
-  },
-];
+import React, { useEffect, useState } from 'react';
 
 export default function People() {
+  const [archivoPublico, setArchivoPublico] = useState([]);
+  const hola = async () => {
+    const respuest = await getData();
+    console.log(respuest);
+    setArchivoPublico(respuest.personas);
+  };
+
+  useEffect(() => {
+    hola();
+  }, []);
   return (
     <div>
       <h1>People</h1>
@@ -25,7 +26,7 @@ export default function People() {
           </tr>
         </thead>
         <tbody>
-          {prueba.map((val, key) => {
+          {archivoPublico.map((val, key) => {
             return (
               <tr>
                 <td>{val.nombre}</td>
@@ -38,3 +39,20 @@ export default function People() {
     </div>
   );
 }
+
+const getData = () => {
+  return fetch(`http://localhost:5000/allPeople`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((res) => {
+      return res;
+    });
+};

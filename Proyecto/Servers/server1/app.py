@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
+from flask_cors import CORS
 import json
 import pymongo
 
@@ -7,6 +8,7 @@ mydb = myclient["Redes2"]
 images = mydb["images"]
 personas = mydb["personas"]
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
@@ -20,7 +22,7 @@ def allPeople():
     for element in all_people:
         del element['_id']
         respuesta.append(element)
-    return json.dumps({'personas': respuesta })
+    return {'personas': respuesta }
 
 @app.route('/addPeople')
 def addPeople():
@@ -29,7 +31,7 @@ def addPeople():
     puesto = requestBody['puesto']
     sender = {'nombre':nombre, 'puesto':puesto}
     personas.insert_one(sender)
-    return json.dumps({'message':'person added successfuly'})
+    return {'message':'person added successfuly'}
 
 @app.route('/allImages')
 def allImages():
@@ -38,7 +40,7 @@ def allImages():
     for element in all_images:
         del element['_id']
         respuesta.append(element)
-    return json.dumps({'imagenes': respuesta})
+    return {'imagenes': respuesta}
 
 @app.route('/addImage')
 def addImage():
@@ -47,11 +49,13 @@ def addImage():
     imageurl = requestBody['imagen']
     sender = {'nombre': nombre, 'imagen': imageurl}
     images.insert_one(sender)
-    return json.dumps({'message':'image added successfuly'})
+    return {'message':'image added successfuly'}
 
 @app.route('/datosMonedas')
 def datosMonedas():
-    return 'estadisticas de monedas'
+    f = open('tipocambio.json')
+    data = json.load(f)
+    return data
 
 if __name__ == '__main__':
     app.run(debug=True)
