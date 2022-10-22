@@ -41,7 +41,7 @@ export default function People() {
 }
 
 const getData = () => {
-  return fetch(`http://localhost:5000/allPeople`, {
+  return fetch(`http://host.docker.internal:5000/allPeople`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

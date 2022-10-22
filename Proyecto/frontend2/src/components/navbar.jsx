@@ -3,7 +3,7 @@ export default function Navbar() {
     <nav className='navbar navbar-expand-lg navbar-light bg-light'>
       <div className='container'>
         <a className='navbar-brand' href='/'>
-          Proyecto 1 Servidor 1
+          Proyecto 1 Servidor 2
         </a>
         <button
           className='navbar-toggler'
@@ -19,16 +19,6 @@ export default function Navbar() {
 
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
-            <li className='nav-item active'>
-              <a className='nav-link' href='/people'>
-                Personas
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/images'>
-                Imagenes
-              </a>
-            </li>
             <li className='nav-item'>
               <a className='nav-link' href='/graphics'>
                 Graficas
