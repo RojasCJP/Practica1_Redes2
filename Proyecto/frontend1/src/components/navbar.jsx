@@ -3,7 +3,7 @@ export default function Navbar() {
     <nav className='navbar navbar-expand-lg navbar-light bg-light'>
       <div className='container'>
         <a className='navbar-brand' href='/'>
-          Proyecto 1 Servidor 1
+          Proyecto 1 Funcion Publica
         </a>
         <button
           className='navbar-toggler'
