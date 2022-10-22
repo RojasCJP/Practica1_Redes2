@@ -11,9 +11,6 @@ function App() {
     case '/':
       Component = Home
       break
-    case '/graphics':
-      Component = Graphics
-      break
     case '/images':
       Component = Images
       break

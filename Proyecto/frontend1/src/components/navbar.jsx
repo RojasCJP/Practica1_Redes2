@@ -16,7 +16,6 @@ export default function Navbar() {
         >
           <span className='navbar-toggler-icon'></span>
         </button>
-
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item active'>
@@ -27,11 +26,6 @@ export default function Navbar() {
             <li className='nav-item'>
               <a className='nav-link' href='/images'>
                 Imagenes
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/graphics'>
-                Graficas
               </a>
             </li>
           </ul>
