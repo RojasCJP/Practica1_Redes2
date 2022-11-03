@@ -45,7 +45,7 @@ export default function Images() {
 }
 
 const getData = () => {
-  return fetch(`http://host.docker.internal:5000/allImages`, {
+  return fetch(`http://localhost:5000/allImages`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

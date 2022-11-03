@@ -5,5 +5,6 @@ COPY app.py ./app.py
 RUN pip install Flask
 RUN pip install Flask-Cors
 RUN pip install pymongo
+RUN pip install pyopenssl
 EXPOSE 5000
 CMD ["python", "app.py"]

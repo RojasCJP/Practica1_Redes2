@@ -3,7 +3,7 @@ from flask_cors import CORS
 import json
 import pymongo
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017")
+myclient = pymongo.MongoClient("mongodb://18.206.146.161:27017")
 mydb = myclient["Redes2"]
 images = mydb["images"]
 personas = mydb["personas"]
