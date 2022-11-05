@@ -15,6 +15,10 @@ int gig 0/0
 ip address 3.3.3.1 255.255.255.252
 no shutdown
 exit
+int serial 0/3/0
+ip address 4.4.4.2 255.255.255.252
+no shutdown
+exit
 ```
 
 ### R IZQ
@@ -64,6 +68,10 @@ router ospf 200
 network 2.2.2.0 0.0.0.3 area 0
 exit
 
+router ospf 300
+network 4.4.4.0 0.0.0.3 area 0
+exit
+
 router rip
 version 2
 no auto-summary
@@ -73,6 +81,7 @@ exit
 router rip
 redistribute ospf 100 metric 15
 redistribute ospf 200 metric 15
+redistribute ospf 300 metric 15
 exit
 
 router ospf 100
@@ -80,6 +89,10 @@ redistribute rip subnets
 exit
 
 router ospf 200
+redistribute rip subnets
+exit
+
+router ospf 300
 redistribute rip subnets
 exit
 ```
